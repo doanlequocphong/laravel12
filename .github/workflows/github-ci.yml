@@ -43,7 +43,7 @@ jobs:
         run: |
           echo "$SSH_PRIVATE_KEY" > private_key
           chmod 600 private_key
-          ssh -o StrictHostKeyChecking=no -i private_key ec2-user@ec2-44-205-253-61.compute-1.amazonaws.com "cd /var/www/laravel12-gh && sudo git pull origin main && sudo php artisan migrate --force && sudo php artisan cache:clear"
+          ssh -i private_key ec2-user@ec2-44-205-253-61.compute-1.amazonaws.com "cd /var/www/laravel12-gh && sudo git pull origin main && sudo php artisan migrate --force && sudo php artisan cache:clear"
 
   deploy-staging:
     runs-on: ubuntu-latest
