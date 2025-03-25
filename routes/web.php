@@ -7,5 +7,5 @@ Route::get('/', function () {
 });
 
 Route::get('/test', function () {
-    dd('test dev 2');
+    dd('test dev 1');
 });
