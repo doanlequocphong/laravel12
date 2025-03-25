@@ -41,9 +41,9 @@ jobs:
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }} # Lấy khóa SSH từ secrets
         run: |
-          echo "$SSH_PRIVATE_KEY" > private_key
+          echo "$SSH_PRIVATE_KEY" | tr -d '\r' > private_key
           chmod 600 private_key
-          ssh -o StrictHostKeyChecking=no -i private_key ec2-user@44.205.253.61 "cd /var/www/laravel12-gh && sudo git pull origin main && sudo php artisan migrate --force && sudo php artisan cache:clear"
+          ssh -o StrictHostKeyChecking=no -i private_key ec2-user@ec2-44-205-253-61.compute-1.amazonaws.com "cd /var/www/laravel12-gh && sudo git pull origin main && sudo php artisan migrate --force && sudo php artisan cache:clear"
 
   deploy-staging:
     runs-on: ubuntu-latest
@@ -58,9 +58,9 @@ jobs:
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }} # Lấy khóa SSH từ secrets
         run: |
-          echo "$SSH_PRIVATE_KEY" > private_key
+          echo "$SSH_PRIVATE_KEY" | tr -d '\r' > private_key
           chmod 600 private_key
-          ssh -o StrictHostKeyChecking=no -i private_key ec2-user@44.205.253.61 "cd /var/www/laravel12-gh && sudo git pull origin staging && sudo php artisan migrate --force && sudo php artisan cache:clear"
+          ssh -o StrictHostKeyChecking=no -i private_key ec2-user@ec2-44-205-253-61.compute-1.amazonaws.com "cd /var/www/laravel12-gh && sudo git pull origin staging && sudo php artisan migrate --force && sudo php artisan cache:clear"
 
   deploy-development:
     runs-on: ubuntu-latest
@@ -75,6 +75,6 @@ jobs:
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }} # Lấy khóa SSH từ secrets
         run: |
-          echo "$SSH_PRIVATE_KEY" > private_key
+          echo "$SSH_PRIVATE_KEY" | tr -d '\r' > private_key
           chmod 600 private_key
-          ssh -o StrictHostKeyChecking=no -i private_key ec2-user@44.205.253.61 "cd /var/www/laravel12-gh && sudo git pull origin develop && sudo php artisan migrate --force && sudo php artisan cache:clear"
+          ssh -o StrictHostKeyChecking=no -i private_key ec2-user@ec2-44-205-253-61.compute-1.amazonaws.com "cd /var/www/laravel12-gh && sudo git pull origin develop && sudo php artisan migrate --force && sudo php artisan cache:clear"
