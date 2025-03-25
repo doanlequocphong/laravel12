@@ -7,5 +7,5 @@ Route::get('/', function () {
 });
 
 Route::get('/test', function () {
-    dd('test dev main');
+    dd('test dev main deploy ec2');
 });
