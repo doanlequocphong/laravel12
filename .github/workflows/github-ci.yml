@@ -1,0 +1,44 @@
+name: CI/CD Pipeline
+
+env:
+  MAIN_BRANCH: main
+  STAGING_BRANCH: staging
+  DEVELOP_BRANCH: develop
+
+on:
+  push:
+    branches:
+      - ${{ env.MAIN_BRANCH }}
+      - ${{ env.STAGING_BRANCH }}
+      - ${{ env.DEVELOP_BRANCH }}
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js (hoặc môi trường khác)
+        uses: actions/setup-node@v2
+        with:
+          node-version: 20.17.0
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run tests
+        run: npm test
+
+      - name: Deploy to Production (nếu cần)
+        if: github.ref == 'refs/heads/${{ env.MAIN_BRANCH }}'
+        run: echo "Deploying to production..."
+
+      - name: Deploy to Staging (nếu cần)
+        if: github.ref == 'refs/heads/${{ env.STAGING_BRANCH }}'
+        run: echo "Deploying to staging..."
+
+      - name: Deploy to Development (nếu cần)
+        if: github.ref == 'refs/heads/${{ env.DEVELOP_BRANCH }}'
+        run: echo "Deploying to development..."
